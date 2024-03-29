@@ -127,7 +127,7 @@ def go_chat():
 
     # return answer_chatgpt
 
-    return '메세지 : ' + message_content
+    return '메세지 : ' + message_content 
 
            
 if __name__ == '__main__':
