@@ -91,12 +91,12 @@ def go_chat():
     print(thread_id)
     print(message_content)
 
-    # message = client.beta.threads.messages.create(
+    message = client.beta.threads.messages.create(
 
-    #     thread_id,
-    #     role="user",
-    #     content=message_content
-    # )
+        thread_id,
+        role="user",
+        content=message_content
+    )
 
  
     # run = client.beta.threads.runs.create(
