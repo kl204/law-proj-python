@@ -37,6 +37,7 @@ pipeline {
                         . venv/bin/activate
                         echo 'Installing dependencies...'
                         pip install -r requirements.txt
+                        echo 'GPT_API_KEY=${GPT_API_KEY}' > .env
                         echo 'Starting Flask application...'
                         nohup python flaskAPI.py > flask.log 2>&1 & echo \$! > flaskapp.pid
                         echo 'Deployment complete.'
