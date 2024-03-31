@@ -113,17 +113,13 @@ def go_chat():
         thread_id=thread_id,
         run_id=run_id
         )
+
         if run.status == "completed":
+            thread_messages = client.beta.threads.messages.list(thread_id)
+            answer_chatgpt = thread_messages.data[0].content[0].text.value
             break
-        if run.status == "failed":
-            answer_chatgpt = "죄송해요!다시 한번 물어봐 주시겠어요?"
-            break
 
-
-    thread_messages = client.beta.threads.messages.list(thread_id)
-    print(thread_messages.data[0].content[0].text.value)
-
-    answer_chatgpt = thread_messages.data[0].content[0].text.value
+        answer_chatgpt = "죄송해요!다시 한번 물어봐 주시겠어요?"
 
     return answer_chatgpt
 
