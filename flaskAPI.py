@@ -116,8 +116,8 @@ def go_chat():
         if run.status == "completed":
             break
         else:
-            print("로딩중..")
-            time.sleep(2)
+            answer_chatgpt = run.status
+            break
 
 
     thread_messages = client.beta.threads.messages.list(thread_id)
@@ -126,8 +126,6 @@ def go_chat():
     answer_chatgpt = thread_messages.data[0].content[0].text.value
 
     return answer_chatgpt
-
-    # return '메세지 : ' + message_content 
 
            
 if __name__ == '__main__':
