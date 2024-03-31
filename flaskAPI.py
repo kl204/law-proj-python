@@ -115,7 +115,7 @@ def go_chat():
         )
         if run.status == "completed":
             break
-        else:
+        if run.status == "failed":
             answer_chatgpt = run.status
             break
 
