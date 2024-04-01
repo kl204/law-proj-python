@@ -4,3 +4,4 @@ typing-extensions
 python-dotenv
 selenium
 bs4
+urllib3<2.0
