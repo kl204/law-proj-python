@@ -6,10 +6,11 @@ from selenium.common.exceptions import TimeoutException
 from bs4 import BeautifulSoup
 import re
 import time
-import json
+from selenium.webdriver.chrome.options import Options
 
-# WebDriver 초기화
-driver = webdriver.Chrome()
+options = Options()
+options.add_argument("--headless")
+driver = webdriver.Chrome(options=options)
 
 def crawling(prece):
     try:
