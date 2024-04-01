@@ -8,6 +8,9 @@ import time
 from dotenv import load_dotenv
 import os
 
+from crwalling import crawling
+
+
 
 app = Flask(__name__)
 
@@ -24,13 +27,15 @@ items = [
     {"thread-id":"thread_wAzJJT9jY6CqXsDpBYZnN8T8"}
 ]
 
-@app.route('/test5')
-def test5():
-    return 'gpt key : ' + gpt
+@app.route('/crawling/<prece>')
+def crawling(prece):
 
-@app.route('/testsec')
-def testpsec():
-    return 'test2 success!!!'
+    result = crawling(prece)  
+
+    if result is not None:
+        return result
+    else:
+        return 'result is missing'
 
 @app.route('/page_init', methods=["POST"])
 def chat_init():
