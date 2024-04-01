@@ -27,6 +27,11 @@ items = [
     {"thread-id":"thread_wAzJJT9jY6CqXsDpBYZnN8T8"}
 ]
 
+@app.route('/test')
+def test():
+
+    return 'result is missing'
+
 @app.route('/crawling/<prece>')
 def crawling(prece):
 
