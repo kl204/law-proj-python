@@ -6,13 +6,13 @@ from selenium.common.exceptions import TimeoutException
 from bs4 import BeautifulSoup
 import re
 import time
-from selenium.webdriver.chrome.options import Options
 
-options = Options()
-options.add_argument("--headless")
-options.add_argument("--no-sandbox")
-options.add_argument("--disable-dev-shm-usage")
-driver = webdriver.Chrome('/usr/local/bin/chromedriver', options=options)
+options = webdriver.ChromeOptions()
+options.binary_location = '/usr/local/bin/chrome-linux'
+
+service = webdriver.ChromeService(executable_path='/usr/local/bin/chromedriver')
+
+driver = webdriver.Chrome(service=service, options=options)
 
 def crawling(prece):
     try:
