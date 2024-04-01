@@ -2,3 +2,5 @@ Flask
 openai
 typing-extensions
 python-dotenv
+selenium
+bs4
