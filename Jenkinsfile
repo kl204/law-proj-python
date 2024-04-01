@@ -19,12 +19,12 @@ pipeline {
                 echo 'GPT_API_KEY=${GPT_API_KEY}' > .env
                 
                 wget https://storage.googleapis.com/chrome-for-testing-public/123.0.6312.86/linux64/chrome-linux64.zip
-                unzip chrome-linux64.zip -d /usr/local/bin/
-                chmod +x /usr/local/bin/chrome-linux
+                sudo unzip chrome-linux64.zip -d /usr/local/bin/
+                sudo chmod +x /usr/local/bin/chrome-linux
 
                 wget https://storage.googleapis.com/chrome-for-testing-public/123.0.6312.86/linux64/chromedriver-linux64.zip
-                unzip chromedriver-linux64.zip -d /usr/local/bin/
-                chmod +x /usr/local/bin/chromedriver
+                sudo unzip chromedriver-linux64.zip -d /usr/local/bin/
+                sudo chmod +x /usr/local/bin/chromedriver
                 '''
             }
         }
