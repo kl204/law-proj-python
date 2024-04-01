@@ -10,7 +10,9 @@ from selenium.webdriver.chrome.options import Options
 
 options = Options()
 options.add_argument("--headless")
-driver = webdriver.Chrome(options=options)
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+driver = webdriver.Chrome('/usr/local/bin/chromedriver', chrome_options=options)
 
 def crawling(prece):
     try:
