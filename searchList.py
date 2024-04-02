@@ -36,11 +36,14 @@ def searchList(prece):
         # 결과를 저장할 JSON 배열
         results = []
 
-        # 'a' 태그를 순회하며 정보 추출
-        for a_tag in soup.find_all('a'):
-            a_text = a_tag.text  # a 태그의 전체 텍스트 (span 포함)
-            span_text = a_tag.find('span').text if a_tag.find('span') else ''  # span 태그의 텍스트
-            a_only_text = a_text.replace(span_text, '').strip()  # a 태그에서 span 텍스트를 제외한 순수 텍스트
+        # 'td' 태그의 클래스 이름이 's_tit'인 요소들 중에서 'a' 태그를 찾아 처리
+        for td in soup.find_all('td', class_='s_tit'):
+            # 현재 'td' 태그 안의 'a' 태그를 찾음
+            a_tag = td.find('a')
+            if a_tag:
+                a_text = a_tag.text  # a 태그의 전체 텍스트 (span 포함)
+                span_text = a_tag.find('span').text if a_tag.find('span') else ''  # span 태그의 텍스트
+                a_only_text = a_text.replace(span_text, '').strip()  # a 태그에서 span 텍스트를 제외한 순수 텍스트
 
             # 추출한 정보를 딕셔너리로 저장
             result_dict = {
@@ -54,7 +57,7 @@ def searchList(prece):
         return results
 
     except TimeoutException:
-        print("Failed to load the page or find the element within the given time.")
+        return 'TimeOut Error!!'
 
     finally:
         # WebDriver 종료
