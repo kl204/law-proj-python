@@ -1,4 +1,10 @@
 from selenium import webdriver
+
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
+from selenium.webdriver.chrome.options import Options
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -7,8 +13,10 @@ from bs4 import BeautifulSoup
 import re
 import time
 
-service = webdriver.ChromeService()
-driver = webdriver.Chrome(service=service)
+chrome_options = Options()
+chrome_options.add_argument('--headless') # 창 없이 백그라운드로 실행
+
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
 def crawling(prece):
     try:
