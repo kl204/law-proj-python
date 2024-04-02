@@ -7,19 +7,9 @@ from bs4 import BeautifulSoup
 import re
 import time
 
+driver = webdriver.Chrome()
 
 def crawling(prece):
-
-    options = webdriver.ChromeOptions()
-    options.add_argument("--headless") 
-    options.add_argument("--no-sandbox") 
-    options.binary_location = '/home/ec2-user/chrome-linux64/chrome'
-
-    service = webdriver.ChromeService(executable_path='/home/ec2-user/chromedriver-linux64/chromedriver',
-                                      service_args=['--verbose', '--log-path=/home/ec2-user/flaskapp/logfile.log'])
-
-    driver = webdriver.Chrome(service=service, options=options)
-
     try:
 
         # 웹페이지 로드
