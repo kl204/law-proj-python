@@ -28,7 +28,7 @@ pipeline {
                     rsync -avz --exclude venv --exclude .git --exclude flask.log ${WORKSPACE}/ ec2-user@ec2-44-216-19-144.compute-1.amazonaws.com:/home/ec2-user/flaskapp/
                     ssh ec2-user@ec2-44-216-19-144.compute-1.amazonaws.com "
 
-                        sudo chown $USER:$USER /home/ec2-user/chromedriver-linux64.zip
+                        sudo chown ec2-user:ec2-user /home/ec2-user/chromedriver-linux64.zip
                         
                         sudo wget https://storage.googleapis.com/chrome-for-testing-public/123.0.6312.86/linux64/chrome-linux64.zip
                         sudo unzip -o chrome-linux64.zip -d /home/ec2-user/
