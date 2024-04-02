@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 import os
 
 from crwalling import crawling
+from searchList import searchList
 
 
 
@@ -43,6 +44,19 @@ def api_crawling():
             return 'Result is missing'
     else:
         return 'Prece parameter is missing'
+    
+@app.route('/searchList')
+def api_crawling_List():
+    prece = request.args.get('prece')
+    if prece:
+        result = searchList(prece)
+        if result is not None:
+            return result
+        else:
+            return 'Result is missing'
+    else:
+        return 'Prece parameter is missing'
+    
 
 @app.route('/page_init', methods=["POST"])
 def chat_init():

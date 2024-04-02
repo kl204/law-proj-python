@@ -48,7 +48,7 @@ def crawling(prece):
 
         print("prec check : " + licPrec)
 
-        # 검색 결과 중 첫 번째 결과의 'onclick' 속성을 가진 <a> 태그 클릭
+        # 검색 결과 중 정확한 판결 번호 결과의 'onclick' 속성을 가진 <a> 태그 클릭
         first_result = WebDriverWait(driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, f"//a[contains(@onclick, \"lsEmpViewWideAll('{licPrec}')\")]"))
         )
@@ -101,8 +101,5 @@ def crawling(prece):
         # WebDriver 종료
         driver.quit()
 
-# # 함수 호출
-# prece = "99다63183"
-# result_data = scrape_korean_legal_info(prece)
-# print(json.dumps(result_data, ensure_ascii=False, indent=2))
+
 
