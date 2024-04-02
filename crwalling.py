@@ -7,7 +7,8 @@ from bs4 import BeautifulSoup
 import re
 import time
 
-driver = webdriver.Chrome()
+service = webdriver.ChromeService()
+driver = webdriver.Chrome(service=service)
 
 def crawling(prece):
     try:
