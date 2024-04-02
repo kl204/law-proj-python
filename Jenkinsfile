@@ -33,7 +33,7 @@ pipeline {
 
                         wget https://storage.googleapis.com/chrome-for-testing-public/123.0.6312.86/linux64/chromedriver-linux64.zip
                         sudo unzip chromedriver-linux64.zip -d /home/ec2-user/  
-                        sudo chmod +x /home/ec2-user/chromedriver
+                        sudo chmod +x /home/ec2-user/chromedriver-linux64/chromedriver
                         
                         echo 'Creating application directory if not exists...'
                         mkdir -p /home/ec2-user/flaskapp
