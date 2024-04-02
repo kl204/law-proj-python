@@ -36,7 +36,7 @@ def test():
 def api_crawling():
     prece = request.args.get('prece')
     if prece:
-        result = crawling(prece)  # 가정: perform_crawling은 실제 크롤링을 수행하는 다른 함수입니다.
+        result = crawling(prece)
         if result is not None:
             return result
         else:
