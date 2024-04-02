@@ -16,9 +16,10 @@ import time
 chrome_options = Options()
 chrome_options.add_argument('--headless') # 창 없이 백그라운드로 실행
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
-
 def crawling(prece):
+
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+
     try:
 
         # 웹페이지 로드
