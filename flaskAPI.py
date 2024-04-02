@@ -32,15 +32,17 @@ def test():
 
     return 'result is missing'
 
-@app.route('/crawling/<prece>')
-def crawling(prece):
-
-    result = crawling(prece)  
-
-    if result is not None:
-        return result
+@app.route('/api/crawling')
+def api_crawling():
+    prece = request.args.get('prece')
+    if prece:
+        result = crawling(prece)  # 가정: perform_crawling은 실제 크롤링을 수행하는 다른 함수입니다.
+        if result is not None:
+            return result
+        else:
+            return 'Result is missing'
     else:
-        return 'result is missing'
+        return 'Prece parameter is missing'
 
 @app.route('/page_init', methods=["POST"])
 def chat_init():
