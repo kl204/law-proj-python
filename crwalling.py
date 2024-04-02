@@ -15,7 +15,8 @@ def crawling(prece):
     options.add_argument("--no-sandbox") 
     options.binary_location = '/home/ec2-user/chrome-linux64/chrome'
 
-    service = webdriver.ChromeService(executable_path='/home/ec2-user/chromedriver-linux64/chromedriver')
+    service = webdriver.ChromeService(executable_path='/home/ec2-user/chromedriver-linux64/chromedriver',
+                                      service_args=['--verbose', '--log-path=/home/ec2-user/flaskapp/logfile.log'])
 
     driver = webdriver.Chrome(service=service, options=options)
 
