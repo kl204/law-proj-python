@@ -7,21 +7,19 @@ from bs4 import BeautifulSoup
 import re
 import time
 
-options = webdriver.ChromeOptions()
-options.add_argument("--headless") 
-options.add_argument("--no-sandbox") 
-options.binary_location = '/home/ec2-user/chrome-linux64/chrome'
 
-service = webdriver.ChromeService(executable_path='/home/ec2-user/chromedriver-linux64/chromedriver')
-
-driver = webdriver.Chrome(service=service, options=options)
 
 def crawling(prece):
 
     try:
+        options = webdriver.ChromeOptions()
+        options.add_argument("--headless") 
+        options.add_argument("--no-sandbox") 
+        options.binary_location = '/home/ec2-user/chrome-linux64/chrome'
 
-        # 검색할 판례 번호
-        prece = prece
+        service = webdriver.ChromeService(executable_path='/home/ec2-user/chromedriver-linux64/chromedriver')
+
+        driver = webdriver.Chrome(service=service, options=options)
 
         # 웹페이지 로드
         driver.get(f'https://law.go.kr/precSc.do?menuId=7&subMenuId=47&tabMenuId=213&query={prece}')
