@@ -8,9 +8,9 @@ import re
 import time
 
 options = webdriver.ChromeOptions()
-options.binary_location = '/home/ec2-user/chrome-linux64.zip'
+options.binary_location = '/home/ec2-user/chrome-linux64/chrome'
 
-service = webdriver.ChromeService(executable_path='/home/ec2-user/chromedriver-linux64.zip')
+service = webdriver.ChromeService(executable_path='/home/ec2-user/chromedriver-linux64/chromedriver')
 
 driver = webdriver.Chrome(service=service, options=options)
 
