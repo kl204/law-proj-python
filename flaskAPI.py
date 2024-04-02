@@ -32,7 +32,7 @@ def test():
 
     return 'result is missing'
 
-@app.route('/api/crawling')
+@app.route('/crawling')
 def api_crawling():
     prece = request.args.get('prece')
     if prece:
