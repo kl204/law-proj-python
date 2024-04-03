@@ -10,9 +10,6 @@ import os
 
 from crwalling import crawling
 from searchList import searchList
-from pageInit import find_ai_summary
-from pageInit import page_init
-from pageInit import update_ai_summary_in_data
 
 app = Flask(__name__)
 
@@ -23,7 +20,11 @@ gpt = "GPT_API_KEY"
 
 client = OpenAI(api_key=GPT_API_KEY)
 my_assistant_id = "asst_9476M4WDV4us6HhNQgbdNMeC"
-thread_id_sample = "thread_wAzJJT9jY6CqXsDpBYZnN8T8"
+
+items = [
+    {"is-member":True},
+    {"thread-id":"thread_wAzJJT9jY6CqXsDpBYZnN8T8"}
+]
 
 @app.route('/test')
 def test():
@@ -38,11 +39,9 @@ def api_crawling():
     if searchText:
         result = crawling(licPrec, searchText)
         if result is not None:
-            ai_summary_text = find_ai_summary(result)  # AI요약 텍스트 추출
-            if ai_summary_text:
-                processed_text = page_init(ai_summary_text)  # AI요약 텍스트 처리
-                update_ai_summary_in_data(result, processed_text)  # 처리된 텍스트를 다시 데이터에 업데이트
             return result
+        else:
+            return 'Result is missing'
     else:
         return 'Prece parameter is missing'
     
@@ -56,15 +55,60 @@ def api_crawling_List():
         else:
             return 'Result is missing'
     else:
-        return 'Prece parameter is missing'    
+        return 'Prece parameter is missing'
+    
+
+@app.route('/page_init', methods=["POST"])
+def chat_init():
+    item = request.get_json()
+
+    thread_id = item[0].get('thread_id')
+    summary_reason = item[1].get('summary_reason')
+    summary_reason += "\n\n이 이야기를 쉬운말로 압축해주고 결론으로 꼭 마무리해줘"
+
+    if not thread_id:
+        print('쓰레드를 만든다!')
+
+    message = client.beta.threads.messages.create(
+        thread_id,
+        role="user",
+        content=summary_reason
+    )
+    
+    run = client.beta.threads.runs.create(
+    thread_id=thread_id,
+    assistant_id=my_assistant_id
+    )
+
+    run_id = run.id
+
+    while True:
+        run = client.beta.threads.runs.retrieve(
+        thread_id=thread_id,
+        run_id=run_id
+        )
+        if run.status == "completed":
+            break
+
+    thread_messages = client.beta.threads.messages.list(thread_id)
+    result_message = thread_messages.data[0].content[0].text.value
+
+    return result_message
+    
+
 
 @app.route('/chat', methods=['POST'])
 def go_chat():
 
     items = request.get_json()
 
+    print(items)
+
     thread_id = items.get('thread_id')
     message_content = items.get('message')
+
+    print(thread_id)
+    print(message_content)
 
     message = client.beta.threads.messages.create(
 
@@ -73,10 +117,12 @@ def go_chat():
         content=message_content
     )
 
+ 
     run = client.beta.threads.runs.create(
     thread_id=thread_id,
     assistant_id=my_assistant_id
     )
+
 
     run_id = run.id
 
