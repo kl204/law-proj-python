@@ -84,26 +84,18 @@ def crawling(licPrec, searchText):
                 data["yo_content"] = p_pty4.get_text(strip=True)
 
         # 'pgroup' 클래스를 가진 모든 div 태그를 순회
-        pgroups = soup.find_all('div', class_='pgroup')
-
-        # 개별적으로 각 카테고리 처리
-        categories = ["원고", "피고", "원심판결", "주 문", "이 유"]
-
-        # 카테고리별로 데이터를 저장할 딕셔너리 초기화
-        data = {"texts": []}
-
+        pgroups = soup.find_all('div', class_='pgroup')  
         for pgroup in pgroups:
             h5 = pgroup.find('h5')
-            if h5:
-                # 각 카테고리에 대해 검사
-                for category in categories:
-                    if category in h5.text:
-                        # 해당 카테고리의 텍스트를 포함하는 p 태그 찾기
-                        p = pgroup.find('p', class_='pty4_dep1')
-                        if p:
-                            # 해당 카테고리와 텍스트를 딕셔너리에 추가
-                            data["texts"].append({"category": category, "text": p.text})
-                            break  # 현재 pgroup에서 매칭된 첫 번째 카테고리에 대해 처리를 완료했으므로, 더 이상의 검사를 중단
+            if h5 and "원고" in h5.text:  
+                p = pgroup.find('p', class_='pty4_dep1') 
+                if p:
+                    data["texts"].append({"category": "원고", "text": p.text})  
+            if h5 and "피고" in h5.text:  
+                p = pgroup.find('p', class_='pty4_dep1') 
+                if p:
+                    data["texts"].append({"category": "피고", "text": p.text})                     
+
 
         return data
 
