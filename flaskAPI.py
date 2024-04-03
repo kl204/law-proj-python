@@ -24,7 +24,7 @@ my_assistant_id = "asst_9476M4WDV4us6HhNQgbdNMeC"
 @app.route('/test')
 def test():
 
-    return 'test Success!!'
+    return 'test \n Success!!'
 
 @app.route('/crawling')
 def api_crawling():
