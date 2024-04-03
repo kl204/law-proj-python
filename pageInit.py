@@ -19,7 +19,6 @@ client = OpenAI(api_key=GPT_API_KEY)
 my_assistant_id = "asst_9476M4WDV4us6HhNQgbdNMeC"
 thread_id_sample = "thread_wAzJJT9jY6CqXsDpBYZnN8T8"
 
-# AI요약 텍스트를 찾는 함수
 def find_ai_summary(data):
     for item in data["texts"]:
         if item["category"] == "이유":
