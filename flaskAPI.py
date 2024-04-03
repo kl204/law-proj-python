@@ -92,7 +92,7 @@ def chat_init():
     
 
 
-@app.route('/chat', methods=['POST'])
+@app.route('/chat', methods=["POST"])
 def go_chat():
 
     item = request.get_json()
