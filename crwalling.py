@@ -87,7 +87,7 @@ def crawling(licPrec, searchText):
         if h5s:
             h5_text = h5s.text.replace(" ", "")
 
-            if h5_text == "원고":
+            if "원고" in h5_text:
                 p = h5s.find_next('p', {'class': 'pty4_dep1'})
                 if p:
                     data["texts"].append({"category": "원고", "text": p.text})
@@ -96,7 +96,7 @@ def crawling(licPrec, searchText):
         if h5s:
             h5_text = h5s.text.replace(" ", "")
 
-            if h5_text == "피고":
+            if "피고" in h5_text:
                 p = h5s.find_next('p', {'class': 'pty4_dep1'})
                 if p:
                     data["texts"].append({"category": "피고", "text": p.text})
@@ -105,7 +105,7 @@ def crawling(licPrec, searchText):
         if h5s:
             h5_text = h5s.text.replace(" ", "")
 
-            if h5_text == "주문":
+            if "주문" in h5_text:
                 p = h5s.find_next('p', {'class': 'pty4_dep1'})
                 if p:
                     data["texts"].append({"category": "주문", "text": p.text})
