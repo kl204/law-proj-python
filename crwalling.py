@@ -91,10 +91,10 @@ def crawling(licPrec, searchText):
                 # h5 태그의 텍스트에서 모든 공백 제거
                 h5_text = h5.text.replace(" ", "")
         
-                if "원고" in h5_text:  # 띄어쓰기 없는 텍스트로 "원고" 검사
+                if "주문" in h5_text:  # 띄어쓰기 없는 텍스트로 "원고" 검사
                     p = pgroup.find('p', class_='pty4_dep1') 
                     if p:
-                        data["texts"].append({"category": "원고", "text": p.text})
+                        data["texts"].append({"category": "주문", "text": p.text})
                         break
 
         # 'pgroup' 클래스를 가진 모든 div 태그를 순회
@@ -119,10 +119,10 @@ def crawling(licPrec, searchText):
                 # h5 태그의 텍스트에서 모든 공백 제거
                 h5_text = h5.text.replace(" ", "")
         
-                if "주문" in h5_text:  # 띄어쓰기 없는 텍스트로 "원고" 검사
+                if "원고" in h5_text:  # 띄어쓰기 없는 텍스트로 "원고" 검사
                     p = pgroup.find('p', class_='pty4_dep1') 
                     if p:
-                        data["texts"].append({"category": "주문", "text": p.text})
+                        data["texts"].append({"category": "원고", "text": p.text})
                         break
                  
 
