@@ -59,38 +59,43 @@ def crawling(licPrec, searchText):
         new_html = driver.page_source
         soup = BeautifulSoup(new_html, 'html.parser')
 
-        # 데이터 추출
-        title = ""
-        subtitle = ""
-        yo_content = ""
+        data = {
+            "title": "",
+            "subtitle": "",
+            "yo_content": "",
+            "texts": []  # 원고, 피고, 원심판결, 주문, 이유에 따른 텍스트를 저장할 리스트
+        }
 
-        # input 태그의 id가 precSeq이고 value가 prece인 태그 하위의 input 태그의 name이 precNm인 것의 value
+        # input 태그의 id가 precSeq이고 value가 licPrec인 태그 하위의 input 태그의 name이 precNm인 것의 value
         title_input = soup.find('input', {'id': 'precSeq', 'value': f'{licPrec}'})
         if title_input:
-            title = title_input.find_next_sibling('input', {'name': 'precNm'})['value']
+            data["title"] = title_input.find_next_sibling('input', {'name': 'precNm'}).get('value', '')
 
         # div의 class가 subtit1인 것의 문자
         subtitle_div = soup.find('div', {'class': 'subtit1'})
         if subtitle_div:
-            subtitle = subtitle_div.get_text(strip=True)
+            data["subtitle"] = subtitle_div.get_text(strip=True)
 
         # h4의 id가 yo인 것 및 p class="pty4"의 내용
         yo_h4 = soup.find('h4', {'id': 'yo'})
         if yo_h4:
             p_pty4 = yo_h4.find_next('p', {'class': 'pty4'})
             if p_pty4:
-                yo_content = p_pty4.get_text(strip=True)
+                data["yo_content"] = p_pty4.get_text(strip=True)
 
-        # JSON으로 묶어서 출력
-        data_json = {
-            'title': title,
-            'subtitle': subtitle,
-            'contents': {
-                'yo': yo_content
-            }
-        }
+        # 'pgroup' 클래스를 가진 모든 div 태그를 순회
+        pgroups = soup.find_all('div', class_='pgroup')
+        for pgroup in pgroups:
+            h5 = pgroup.find('h5')
+            if h5:
+                # 조건에 따라 'pty4_dep1' 클래스를 가진 p 태그의 텍스트 추출
+                if any(keyword in h5.text for keyword in ["원고", "피고", "원심판결", "주문", "이유"]):
+                    p = pgroup.find('p', class_='pty4_dep1')
+                    if p:
+                        data["texts"].append(p.text)
 
-        return data_json
+
+        return data
 
     except TimeoutException:
         print("Failed to load the page or find the element within the given time.")
