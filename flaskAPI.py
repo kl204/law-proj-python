@@ -57,21 +57,18 @@ def api_crawling_List():
 def chat_init():
     item = request.get_json()
 
-    thread_id = item.get('thread_id')
+    thread =client.beta.threads.create()
     summary_reason = item.get('summary_reason')
     summary_reason += "\n\n이 이야기를 쉬운말로 압축해주고 결론으로 꼭 마무리해줘"
 
-    if not thread_id:
-        print('쓰레드를 만든다!')
-
     message = client.beta.threads.messages.create(
-        thread_id,
+        thread.id,
         role="user",
         content=summary_reason
     )
     
     run = client.beta.threads.runs.create(
-    thread_id=thread_id,
+    thread_id=thread.id,
     assistant_id=my_assistant_id
     )
 
@@ -79,16 +76,21 @@ def chat_init():
 
     while True:
         run = client.beta.threads.runs.retrieve(
-        thread_id=thread_id,
+        thread_id=thread.id,
         run_id=run_id
         )
         if run.status == "completed":
             break
 
-    thread_messages = client.beta.threads.messages.list(thread_id)
+    thread_messages = client.beta.threads.messages.list(thread.id)
     result_message = thread_messages.data[0].content[0].text.value
 
-    return result_message
+    data = {
+        "thread_id": thread.id,
+        "summary": result_message,
+    }
+
+    return data
     
 
 
