@@ -105,36 +105,35 @@ def go_chat():
     thread_id = items.get('thread_id')
     message_content = items.get('message')
 
-    # message = client.beta.threads.messages.create(
+    message = client.beta.threads.messages.create(
 
-    #     thread_id,
-    #     role="user",
-    #     content=message_content
-    # )
+        thread_id,
+        role="user",
+        content=message_content
+    )
 
-    # run = client.beta.threads.runs.create(
-    # thread_id=thread_id,
-    # assistant_id=my_assistant_id
-    # )
+    run = client.beta.threads.runs.create(
+    thread_id=thread_id,
+    assistant_id=my_assistant_id
+    )
 
-    # run_id = run.id
+    run_id = run.id
 
 
-    # while True:
-    #     run = client.beta.threads.runs.retrieve(
-    #     thread_id=thread_id,
-    #     run_id=run_id
-    #     )
+    while True:
+        run = client.beta.threads.runs.retrieve(
+        thread_id=thread_id,
+        run_id=run_id
+        )
 
-    #     if run.status == "completed":
-    #         thread_messages = client.beta.threads.messages.list(thread_id)
-    #         answer_chatgpt = thread_messages.data[0].content[0].text.value
-    #         break
+        if run.status == "completed":
+            thread_messages = client.beta.threads.messages.list(thread_id)
+            answer_chatgpt = thread_messages.data[0].content[0].text.value
+            break
 
-    #     answer_chatgpt = "죄송해요!다시 한번 물어봐 주시겠어요?"
+        answer_chatgpt = "죄송해요!다시 한번 물어봐 주시겠어요?"
 
-    # return answer_chatgpt
-    return message_content
+    return answer_chatgpt
 
            
 if __name__ == '__main__':
