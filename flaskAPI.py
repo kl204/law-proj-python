@@ -59,7 +59,9 @@ def chat_init():
 
     thread =client.beta.threads.create()
     summary_reason = item.get('summary_reason')
-    summary_reason += "\n\n이 이야기를 쉬운말로 압축해주고 결론으로 꼭 마무리해줘"
+    summary_reason += "\n\n위 문장은 판결문의 이유야 내용에 대한 이야기의 흐름을"
+    "쉬운말로 압축해서 순차적으로 나열하고 마지막에는 결론적으로 어떤 이유 때문에 어떤"
+    "결론이 나왔는지를 명확하게 이야기해줘. 문단이 나눠져야할때는 줄바꿈 코드 넣어서 만들어줘"
 
     message = client.beta.threads.messages.create(
         thread.id,
