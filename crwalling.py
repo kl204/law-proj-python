@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 import re
 import time
 
-from flaskAPI import page_init
+from pageInit import page_init
 
 chrome_options = Options()
 chrome_options.add_argument('--headless') # 창 없이 백그라운드로 실행

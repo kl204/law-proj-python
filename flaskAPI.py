@@ -92,45 +92,6 @@ def go_chat():
 
     return answer_chatgpt
 
-
-def page_init(contents):
-
-    thread_id = thread_id_sample
-    summary_reason = contents
-    summary_reason += "\n\n이 이야기를 쉬운말로 압축해주고 결론으로 꼭 마무리해줘"
-
-    if not thread_id:
-        print('쓰레드를 만든다!')
-
-    client.beta.threads.messages.create(
-        thread_id,
-        role="user",
-        content=summary_reason
-    )
-    
-    run = client.beta.threads.runs.create(
-    thread_id=thread_id,
-    assistant_id=my_assistant_id
-    )
-
-    run_id = run.id
-
-    while True:
-        run = client.beta.threads.runs.retrieve(
-        thread_id=thread_id,
-        run_id=run_id
-        )
-        if run.status == "completed":
-            break
-        else:
-            print("로딩중..")
-            time.sleep(2)
-
-    thread_messages = client.beta.threads.messages.list(thread_id)
-    result_message = thread_messages.data[0].content[0].text.value
-
-    return result_message
-
            
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5001)   
