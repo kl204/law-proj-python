@@ -89,7 +89,7 @@ def crawling(licPrec, searchText):
             h5 = pgroup.find('h5')
             if h5:
                 # 조건에 따라 'pty4_dep1' 클래스를 가진 p 태그의 텍스트 추출
-                for keyword in ["원고", "피고", "원심판결", "주", "이 유"]:
+                for keyword in ["원고", "【피고, 항소인】", "원심판결", "주 문", "이 유"]:
                     if keyword in h5.text:
                         p = pgroup.find('p', class_='pty4_dep1')
                         if p:
