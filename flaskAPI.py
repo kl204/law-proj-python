@@ -37,9 +37,12 @@ def api_crawling():
     
     if searchText:
         result = crawling(licPrec, searchText)
-
-
-        return result      
+        if result is not None:
+            ai_summary_text = find_ai_summary(result)  # AI요약 텍스트 추출
+            if ai_summary_text:
+                processed_text = page_init(ai_summary_text)  # AI요약 텍스트 처리
+                update_ai_summary_in_data(result, processed_text)  # 처리된 텍스트를 다시 데이터에 업데이트
+            return result
     else:
         return 'Prece parameter is missing'
     
