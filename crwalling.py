@@ -16,14 +16,14 @@ import time
 chrome_options = Options()
 chrome_options.add_argument('--headless') # 창 없이 백그라운드로 실행
 
-def crawling(prece):
+def crawling(licPrec, searchText):
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
     try:
 
         # 웹페이지 로드
-        driver.get(f'https://law.go.kr/precSc.do?menuId=7&subMenuId=47&tabMenuId=213&query={prece}')
+        driver.get(f'https://law.go.kr/precSc.do?menuId=7&subMenuId=47&tabMenuId=213&query={searchText}')
 
         # 특정 요소가 로드될 때까지 기다림
         wait = WebDriverWait(driver, 20)
@@ -33,20 +33,18 @@ def crawling(prece):
         html = driver.page_source
         soup = BeautifulSoup(html, 'html.parser')
 
-        # 검색한 판례와 일치하는 텍스트를 가진 요소를 찾음
-        search_result = soup.find_all(string=re.compile(prece))
-        for result in search_result:
-            parent_a_tag = result.find_parent('a')
-            if parent_a_tag and 'onclick' in parent_a_tag.attrs:
-                onclick_attr = parent_a_tag['onclick']
-                # 'onclick' 속성에서 숫자 추출
-                numbers = re.findall(r'\d+', onclick_attr)
-                if numbers:
-                    print("Found number:", numbers[0])
-                    licPrec = numbers[0]
-                    break
-
-        print("prec check : " + licPrec)
+        # # 검색한 판례와 일치하는 텍스트를 가진 요소를 찾음
+        # search_result = soup.find_all(string=re.compile(prece))
+        # for result in search_result:
+        #     parent_a_tag = result.find_parent('a')
+        #     if parent_a_tag and 'onclick' in parent_a_tag.attrs:
+        #         onclick_attr = parent_a_tag['onclick']
+        #         # 'onclick' 속성에서 숫자 추출
+        #         numbers = re.findall(r'\d+', onclick_attr)
+        #         if numbers:
+        #             print("Found number:", numbers[0])
+        #             licPrec = numbers[0]
+        #             break
 
         # 검색 결과 중 정확한 판결 번호 결과의 'onclick' 속성을 가진 <a> 태그 클릭
         first_result = WebDriverWait(driver, 20).until(
