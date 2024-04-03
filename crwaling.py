@@ -112,10 +112,7 @@ def crawling(licPrec, searchText):
                 elif "이유" in h5_text:
                     p = h5.find_next('p', {'class': 'pty4_dep1'})
                     if p:
-                        
-                        summary_content = page_init(p.text)
-
-                        data["texts"].append({"category": "AI요약", "text": summary_content})
+                        data["texts"].append({"category": "AI요약", "text": p.text})
 
                 elif "청구취지" in h5_text:
                     p = h5.find_next('p', {'class': 'pty4_dep1'})

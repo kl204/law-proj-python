@@ -10,6 +10,9 @@ import os
 
 from crwaling import crawling
 from searchList import searchList
+from pageInit import find_ai_summary
+from pageInit import page_init
+from pageInit import update_ai_summary_in_data
 
 app = Flask(__name__)
 
@@ -21,7 +24,6 @@ gpt = "GPT_API_KEY"
 client = OpenAI(api_key=GPT_API_KEY)
 my_assistant_id = "asst_9476M4WDV4us6HhNQgbdNMeC"
 thread_id_sample = "thread_wAzJJT9jY6CqXsDpBYZnN8T8"
-
 
 @app.route('/test')
 def test():
@@ -35,10 +37,15 @@ def api_crawling():
     
     if searchText:
         result = crawling(licPrec, searchText)
+
         if result is not None:
+            ai_summary_text = find_ai_summary(result)  # AI요약 텍스트 추출
+            if ai_summary_text:
+                processed_text = page_init(ai_summary_text)  # AI요약 텍스트 처리
+                update_ai_summary_in_data(result, processed_text)  # 처리된 텍스트를 다시 데이터에 업데이트
             return result
         else:
-            return 'Result is missing'
+            return 'Result is missing'       
     else:
         return 'Prece parameter is missing'
     
