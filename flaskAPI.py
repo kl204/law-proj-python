@@ -59,7 +59,6 @@ def chat_init():
 
     thread =client.beta.threads.create()
     summary_reason = item.get('summary_reason')
-    summary_reason += "\n\n 위의 내용을 인물과 사건을 바탕으로 기승전결의 이야기로 설명해줘. 결론적으로 이렇다라고 꼭 마무리하는 멘트도 답변에 포함해줘"
 
     message = client.beta.threads.messages.create(
         thread.id,
