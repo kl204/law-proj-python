@@ -62,8 +62,8 @@ def api_crawling_List():
 def chat_init():
     item = request.get_json()
 
-    thread_id = item[0].get('thread_id')
-    summary_reason = item[1].get('summary_reason')
+    thread_id = item.get('thread_id')
+    summary_reason = item.get('summary_reason')
     summary_reason += "\n\n이 이야기를 쉬운말로 압축해주고 결론으로 꼭 마무리해줘"
 
     if not thread_id:
