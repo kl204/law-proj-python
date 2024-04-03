@@ -83,20 +83,32 @@ def crawling(licPrec, searchText):
             if p_pty4:
                 data["yo_content"] = p_pty4.get_text(strip=True)
 
-        pgroups = soup.find_all('div', class_='pgroup')  
-        for pgroup in pgroups:
-            h5s = pgroup.find_all('h5')
-            for h5 in h5s:
-                if h5:
-                    h5_text = h5.text.replace(" ", "")
+        h5s = soup.find('h5')
+        if h5s:
+            h5_text = h5s.text.replace(" ", "")
 
-                    keywords = ["원고", "피고", "원심판결", "주문", "이유"]
+            if h5_text == "원고":
+                p = h5s.find_next('p', {'class': 'pty4_dep1'})
+                if p:
+                    data["texts"].append({"category": "원고", "text": p.text})
 
-                    for keyword in keywords:
-                        if keyword in h5_text:  
-                            p = pgroup.find('p', class_='pty4_dep1')
-                            if p:
-                                data["texts"].append({"category": keyword, "text": p.text})
+        h5s = soup.find('h5')
+        if h5s:
+            h5_text = h5s.text.replace(" ", "")
+
+            if h5_text == "피고":
+                p = h5s.find_next('p', {'class': 'pty4_dep1'})
+                if p:
+                    data["texts"].append({"category": "피고", "text": p.text})
+
+        h5s = soup.find('h5')
+        if h5s:
+            h5_text = h5s.text.replace(" ", "")
+
+            if h5_text == "주문":
+                p = h5s.find_next('p', {'class': 'pty4_dep1'})
+                if p:
+                    data["texts"].append({"category": "주문", "text": p.text})
 
         return data
 
