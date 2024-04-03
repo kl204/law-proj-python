@@ -22,13 +22,13 @@ thread_id_sample = "thread_wAzJJT9jY6CqXsDpBYZnN8T8"
 # AI요약 텍스트를 찾는 함수
 def find_ai_summary(data):
     for item in data["texts"]:
-        if item["category"] == "AI요약":
+        if item["category"] == "이유":
             return item["text"]
     return None  
 
 def update_ai_summary_in_data(data, processed_text):
     for item in data["texts"]:
-        if item["category"] == "AI요약":
+        if item["category"] == "이유":
             item["text"] = processed_text  
             break  
 
