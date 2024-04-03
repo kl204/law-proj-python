@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, jsonify, request
+from flask import Flask, request
 
 from openai import OpenAI
 from typing_extensions import override
@@ -20,11 +20,6 @@ gpt = "GPT_API_KEY"
 
 client = OpenAI(api_key=GPT_API_KEY)
 my_assistant_id = "asst_9476M4WDV4us6HhNQgbdNMeC"
-
-items = [
-    {"is-member":True},
-    {"thread-id":"thread_wAzJJT9jY6CqXsDpBYZnN8T8"}
-]
 
 @app.route('/test')
 def test():
@@ -100,10 +95,10 @@ def chat_init():
 @app.route('/chat', methods=['POST'])
 def go_chat():
 
-    items = request.get_json()
+    item = request.get_json()
 
-    thread_id = items.get('thread_id')
-    message_content = items.get('message')
+    thread_id = item.get('thread_id')
+    message_content = item.get('message')
 
     message = client.beta.threads.messages.create(
 
