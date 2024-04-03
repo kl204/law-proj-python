@@ -13,6 +13,8 @@ from bs4 import BeautifulSoup
 import re
 import time
 
+from flaskAPI import page_init
+
 chrome_options = Options()
 chrome_options.add_argument('--headless') # 창 없이 백그라운드로 실행
 
@@ -106,6 +108,20 @@ def crawling(licPrec, searchText):
                     p = h5.find_next('p', {'class': 'pty4_dep1'})
                     if p:
                         data["texts"].append({"category": "주문", "text": p.text})
+
+                elif "이유" in h5_text:
+                    p = h5.find_next('p', {'class': 'pty4_dep1'})
+                    if p:
+                        
+                        summary_content = page_init(p.text)
+
+                        data["texts"].append({"category": "AI요약", "text": summary_content})
+
+                elif "청구취지" in h5_text:
+                    p = h5.find_next('p', {'class': 'pty4_dep1'})
+                    if p:
+                        data["texts"].append({"category": "청구취지", "text": p.text})
+                
 
         return data
 
