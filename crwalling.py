@@ -13,8 +13,6 @@ from bs4 import BeautifulSoup
 import re
 import time
 
-from pageInit import page_init
-
 chrome_options = Options()
 chrome_options.add_argument('--headless') # 창 없이 백그라운드로 실행
 
@@ -112,7 +110,7 @@ def crawling(licPrec, searchText):
                 elif "이유" in h5_text:
                     p = h5.find_next('p', {'class': 'pty4_dep1'})
                     if p:
-                        data["texts"].append({"category": "AI요약", "text": p.text})
+                        data["texts"].append({"category": "이유", "text": p.text})
 
                 elif "청구취지" in h5_text:
                     p = h5.find_next('p', {'class': 'pty4_dep1'})
