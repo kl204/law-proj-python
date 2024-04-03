@@ -59,7 +59,7 @@ def chat_init():
 
     thread =client.beta.threads.create()
     summary_reason = item.get('summary_reason')
-    summary_reason += "\n\n내용에 대한 이야기의 흐름을 쉬운말로 순차적으로 나열하고 문단이 나눠져야할때는 줄바꿈 코드 넣어서 만들어줘"
+    summary_reason += "\n\n 위의 이야기를 쉬운말로 시간에 흐름에 따라 설명해주고 결과적으로 판결의 결과는 이렇게 나왔다라고 확실히 명시해줘"
 
     message = client.beta.threads.messages.create(
         thread.id,
