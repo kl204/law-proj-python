@@ -8,7 +8,7 @@ import time
 from dotenv import load_dotenv
 import os
 
-from crwaling import crawling
+from crwalling import crawling
 from searchList import searchList
 from pageInit import find_ai_summary
 from pageInit import page_init

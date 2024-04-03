@@ -107,6 +107,17 @@ def crawling(licPrec, searchText):
                     if p:
                         data["texts"].append({"category": "주문", "text": p.text})
 
+                elif "이유" in h5_text:
+                    p = h5.find_next('p', {'class': 'pty4_dep1'})
+                    if p:
+                        data["texts"].append({"category": "이유", "text": p.text})
+
+                elif "청구취지" in h5_text:
+                    p = h5.find_next('p', {'class': 'pty4_dep1'})
+                    if p:
+                        data["texts"].append({"category": "청구취지", "text": p.text})
+                
+
         return data
 
     except TimeoutException:
