@@ -6,7 +6,7 @@ import time
 from dotenv import load_dotenv
 import os
 
-from crwalling import crawling
+from crwaling import crawling
 from searchList import searchList
 
 
