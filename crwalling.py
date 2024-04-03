@@ -83,32 +83,29 @@ def crawling(licPrec, searchText):
             if p_pty4:
                 data["yo_content"] = p_pty4.get_text(strip=True)
 
-        h5s = soup.find('h5')
-        if h5s:
-            h5_text = h5s.text.replace(" ", "")
+        # 문서 내의 모든 h5 태그에 대해 순회
+        h5s = soup.find_all('h5')
+        for h5 in h5s:
+            if h5:
+                h5_text = h5.text.replace(" ", "")
+        
+                # "원고" 키워드가 포함된 경우
+                if "원고" in h5_text:
+                    p = h5.find_next('p', {'class': 'pty4_dep1'})
+                    if p:
+                        data["texts"].append({"category": "원고", "text": p.text})
 
-            if "원고" in h5_text:
-                p = h5s.find_next('p', {'class': 'pty4_dep1'})
-                if p:
-                    data["texts"].append({"category": "원고", "text": p.text})
+                # "피고" 키워드가 포함된 경우
+                elif "피고" in h5_text:
+                    p = h5.find_next('p', {'class': 'pty4_dep1'})
+                    if p:
+                        data["texts"].append({"category": "피고", "text": p.text})
 
-        h5s = soup.find('h5')
-        if h5s:
-            h5_text = h5s.text.replace(" ", "")
-
-            if "피고" in h5_text:
-                p = h5s.find_next('p', {'class': 'pty4_dep1'})
-                if p:
-                    data["texts"].append({"category": "피고", "text": p.text})
-
-        h5s = soup.find('h5')
-        if h5s:
-            h5_text = h5s.text.replace(" ", "")
-
-            if "주문" in h5_text:
-                p = h5s.find_next('p', {'class': 'pty4_dep1'})
-                if p:
-                    data["texts"].append({"category": "주문", "text": p.text})
+                # "주문" 키워드가 포함된 경우
+                elif "주문" in h5_text:
+                    p = h5.find_next('p', {'class': 'pty4_dep1'})
+                    if p:
+                        data["texts"].append({"category": "주문", "text": p.text})
 
         return data
 
