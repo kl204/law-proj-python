@@ -61,7 +61,7 @@ def searchList(prece):
             }
             result_list.append(result_dict)
 
-            return result_list
+        return result_list
 
     except TimeoutException:
         return 'TimeOut Error!!'
