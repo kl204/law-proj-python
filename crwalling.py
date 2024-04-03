@@ -87,14 +87,25 @@ def crawling(licPrec, searchText):
         pgroups = soup.find_all('div', class_='pgroup')  
         for pgroup in pgroups:
             h5 = pgroup.find('h5')
-            if h5 and "원고" in h5.text:  
-                p = pgroup.find('p', class_='pty4_dep1') 
-                if p:
-                    data["texts"].append({"category": "원고", "text": p.text})  
-            if h5 and "피고" in h5.text:  
-                p = pgroup.find('p', class_='pty4_dep1') 
-                if p:
-                    data["texts"].append({"category": "피고", "text": p.text})                     
+            if h5:
+                # h5 태그의 텍스트에서 모든 공백 제거
+                h5_text = h5.text.replace(" ", "")
+        
+                if "원고" in h5_text:  # 띄어쓰기 없는 텍스트로 "원고" 검사
+                    p = pgroup.find('p', class_='pty4_dep1') 
+                    if p:
+                        data["texts"].append({"category": "원고", "text": p.text})
+                
+                if "피고" in h5_text:  # 띄어쓰기 없는 텍스트로 "피고" 검사
+                    p = pgroup.find('p', class_='pty4_dep1') 
+                    if p:
+                        data["texts"].append({"category": "피고", "text": p.text})
+
+                if "주문" in h5_text:  # 띄어쓰기 없는 텍스트로 "피고" 검사
+                    p = pgroup.find('p', class_='pty4_dep1') 
+                    if p:
+                        data["texts"].append({"category": "주문", "text": p.text})
+                 
 
 
         return data
