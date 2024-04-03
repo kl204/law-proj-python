@@ -35,9 +35,11 @@ def test():
 
 @app.route('/crawling')
 def api_crawling():
-    prece = request.args.get('prece')
-    if prece:
-        result = crawling(prece)
+    searchText = request.args.get('searchText')
+    licPrec = request.args.get('licPrec')
+    
+    if searchText:
+        result = crawling(licPrec, searchText)
         if result is not None:
             return result
         else:
