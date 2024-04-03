@@ -60,9 +60,6 @@ def page_init(contents):
         )
         if run.status == "completed":
             break
-        else:
-            print("로딩중..")
-            time.sleep(2)
 
     thread_messages = client.beta.threads.messages.list(thread_id)
     result_message = thread_messages.data[0].content[0].text.value
