@@ -83,6 +83,8 @@ def chat_init():
 
     thread_messages = client.beta.threads.messages.list(thread.id)
     result_message = thread_messages.data[0].content[0].text.value
+    result_message+= "\n\n 위에서 나온 중요 법률 단어들을 찾아서 설명하는 글을 JSON 파일 형식으로 만들어줘봐"
+
 
     data = {
         "thread_id": thread.id,
