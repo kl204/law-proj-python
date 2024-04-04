@@ -35,25 +35,15 @@ def searchList(prece):
 
         result_list = []  # 결과를 저장할 리스트
 
-        # container8 = soup.find('div', {'id': 'container8'})
-
-        # west = container8.find('div', {'id': 'west'})
-
-        # WideListDIV = west.find('div', {'id': 'WideListDIV'})
-
-        # cont_wrap = WideListDIV.find('div', {'class': 'cont_wrap'})
-
-        tbl_wrap = soup.find('div', {'class': 'tbl_wrap'})
-
-        for td in tbl_wrap.find_all('td', class_='s_tit'):
+        for td in soup.find_all('td', class_='s_tit'):
             a_tag = td.find('a')
             if not a_tag:
                 continue
 
             # a 태그의 텍스트와 span 태그를 제외한 순수 텍스트를 가져옴
-            a_text = a_tag.text.strip()  # a 태그의 전체 텍스트
-            span_text = a_tag.find('span').text if a_tag.find('span') else ''  # span 태그의 텍스트, 없으면 빈 문자열
-            a_only_text = a_text.replace(span_text, '').strip()  # a 태그에서 span 텍스트를 제외한 순수 텍스트
+            a_text = a_tag.text.strip() 
+            span_text = a_tag.find('span').text if a_tag.find('span') else ''  # 예) 채권압류및전부명령
+            a_only_text = a_text.replace(span_text, '').strip()  # 예) [대법원 2017. 8. 21. 자 2017마499 결정]
 
             licPrec = None  # 초기값 설정
             if 'onclick' in a_tag.attrs:
@@ -61,7 +51,7 @@ def searchList(prece):
                 # 'onclick' 속성에서 숫자 추출
                 numbers = re.findall(r'\d+', onclick_attr)
                 if numbers:
-                    licPrec = numbers[0]  # 첫 번째 숫자 추출
+                    licPrec = numbers[0]  # 판결문의 고유번호 추출
 
             # 추출한 정보를 딕셔너리로 저장하고 리스트에 추가
             result_dict = {
