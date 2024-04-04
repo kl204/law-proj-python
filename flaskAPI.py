@@ -59,7 +59,7 @@ def chat_init():
 
     thread =client.beta.threads.create()
     summary_reason = item.get('summary_reason')
-    summary_reason+= "\n\n 위에서 나온 중요 법률 단어들을 찾아서 설명하는 글을 JSON 파일 형식으로 만들어줘봐"
+    summary_reason+= "\n\n 위에서 나온 내용의 스토리를 서론 본론 결론으로 나눠서 JSON 파일 형식으로 만들어줘봐"
 
     message = client.beta.threads.messages.create(
         thread.id,
@@ -101,7 +101,7 @@ def go_chat():
 
     thread_id = item.get('thread_id')
     message_content = item.get('message')
-    message_content += "\n\n만약 줄바꿈의 설명이 있을땐 줄바꿈 코드 포함해서 대답해줘 "
+    message_content += "\n\n 그리고 대답은 문단으로 줄바꿈하는 기준으로 JSON 파일 형식으로 바꿔줘 "
 
     message = client.beta.threads.messages.create(
 

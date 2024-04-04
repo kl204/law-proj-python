@@ -101,11 +101,11 @@ def crawling(licPrec, searchText):
                     if p:
                         data["texts"].append({"category": "주문", "text": p.text})
 
-                elif "청구취지" in h5_text:
+                # "주문" 키워드가 포함된 경우
+                elif "이유" in h5_text:
                     p = h5.find_next('p', {'class': 'pty4_dep1'})
                     if p:
-                        data["texts"].append({"category": "청구취지", "text": p.text})
-                
+                        data["texts"].append({"category": "이유", "text": p.text})
 
         return data
 
