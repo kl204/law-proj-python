@@ -35,15 +35,15 @@ def searchList(prece):
 
         result_list = []  # 결과를 저장할 리스트
 
-        container8 = soup.find('div', {'id': 'container8'})
+        # container8 = soup.find('div', {'id': 'container8'})
 
-        west = container8.find('div', {'id': 'west'})
+        # west = container8.find('div', {'id': 'west'})
 
-        WideListDIV = west.find('div', {'id': 'WideListDIV'})
+        # WideListDIV = west.find('div', {'id': 'WideListDIV'})
 
-        cont_wrap = WideListDIV.find('div', {'class': 'cont_wrap'})
+        # cont_wrap = WideListDIV.find('div', {'class': 'cont_wrap'})
 
-        tbl_wrap = cont_wrap.find('div', {'class': 'tbl_wrap'})
+        tbl_wrap = soup.find('div', {'class': 'tbl_wrap'})
 
         for td in tbl_wrap.find_all('td', class_='s_tit'):
             a_tag = td.find('a')
