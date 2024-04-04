@@ -53,25 +53,42 @@ def crawling(licPrec, searchText):
             "texts": []  # 원고, 피고, 원심판결, 주문, 이유에 따른 텍스트를 저장할 리스트
         }
 
-        # input 태그의 id가 precSeq이고 value가 licPrec인 태그 하위의 input 태그의 name이 precNm인 것의 value
-        title_input = soup.find('input', {'id': 'precSeq', 'value': f'{licPrec}'})
-        if title_input:
-            data["title"] = title_input.find_next_sibling('input', {'name': 'precNm'}).get('value', '')
+        container8 = soup.find('div', {'id': 'container8'})
+
+        center = container8.find('div', {'id': 'center'})
+
+        body_content = center.find('div', {'id': 'bodyContent'})
+
+        content_body = body_content.find('div', {'id': 'contentBody'})
+
+        pgroup = content_body.find('div', {'class': 'pgroup'})
+
+
+# find_next_sibling
+        if content_body:
+            data["title"] = content_body.find('h2').get_text(strip=True)
 
         # div의 class가 subtit1인 것의 문자
-        subtitle_div = soup.find('div', {'class': 'subtit1'})
+        subtitle_div = content_body.find('div', {'class': 'subtit1'})
         if subtitle_div:
             data["subtitle"] = subtitle_div.get_text(strip=True)
 
         # h4의 id가 yo인 것 및 p class="pty4"의 내용
-        yo_h4 = soup.find('h4', {'id': 'yo'})
+        yo_h4 = pgroup.find('h4', {'id': 'yo'})
         if yo_h4:
             p_pty4 = yo_h4.find_next('p', {'class': 'pty4'})
             if p_pty4:
                 data["yo_content"] = p_pty4.get_text(strip=True)
 
+        # h4의 id가 yo인 것 및 p class="pty4"의 내용
+        sa_h4 = pgroup.find('h4', {'id': 'sa'})
+        if sa_h4:
+            p_pty4 = sa_h4.find_next('p', {'class': 'pty4'})
+            if p_pty4:
+                data["sa_content"] = p_pty4.get_text(strip=True)
+
         # 문서 내의 모든 h5 태그에 대해 순회
-        h5s = soup.find_all('h5')
+        h5s = pgroup.find_all('h5')
         for h5 in h5s:
             if h5:
                 h5_text = h5.text.replace(" ", "")
@@ -93,11 +110,6 @@ def crawling(licPrec, searchText):
                     p = h5.find_next('p', {'class': 'pty4_dep1'})
                     if p:
                         data["texts"].append({"category": "주문", "text": p.text})
-
-                elif "이유" in h5_text:
-                    p = h5.find_next('p', {'class': 'pty4_dep1'})
-                    if p:
-                        data["texts"].append({"category": "이유", "text": p.text})
 
                 elif "청구취지" in h5_text:
                     p = h5.find_next('p', {'class': 'pty4_dep1'})
