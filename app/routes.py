@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import request
-from services.crwalling import crawling
-from services.searchList import searchList
+from app.services.crwalling import crawling
+from app.services.searchList import searchList
 
 from openai import OpenAI
 from dotenv import load_dotenv
