@@ -18,7 +18,7 @@ def init_routes(app):
     @app.route('/test')
     def test():
 
-        return 'test \n Success!!'
+        return 'test \n Success!!!'
 
     @app.route('/crawling')
     def api_crawling():
