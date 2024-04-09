@@ -84,13 +84,25 @@ def crawling(licPrec, searchText):
                 h5_text = h5.text.replace(" ", "")
         
                 # "원고" 키워드가 포함된 경우
-                if "원고" "상 고 인" in h5_text:
+                if "원고" in h5_text:
                     p = h5.find_next('p', {'class': 'pty4_dep1'})
                     if p:
                         data["texts"].append({"category": "원고", "text": p.text})
 
                 # "피고" 키워드가 포함된 경우
-                elif "피고" "피 고 인" in h5_text:
+                elif "피고" in h5_text:
+                    p = h5.find_next('p', {'class': 'pty4_dep1'})
+                    if p:
+                        data["texts"].append({"category": "피고", "text": p.text})
+
+                # "피고" 키워드가 포함된 경우
+                elif "상 고 인" in h5_text:
+                    p = h5.find_next('p', {'class': 'pty4_dep1'})
+                    if p:
+                        data["texts"].append({"category": "원고", "text": p.text})
+
+                # "피고" 키워드가 포함된 경우
+                elif "피 고 인" in h5_text:
                     p = h5.find_next('p', {'class': 'pty4_dep1'})
                     if p:
                         data["texts"].append({"category": "피고", "text": p.text})
