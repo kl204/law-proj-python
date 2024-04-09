@@ -53,7 +53,7 @@ def init_routes(app):
 
         thread =client.beta.threads.create()
         summary_reason = item.get('summary_reason')
-        summary_reason+= "\n\n 위에서 나온 내용의 스토리를 선생님이 말하듯 이야기 형식으로 말해봐"
+        summary_reason+= "\n\n 위에서 나온 내용을 알기 쉬운 말로 기승전결로 말하고 결론을 말해"
 
         client.beta.threads.messages.create(
             thread.id,
